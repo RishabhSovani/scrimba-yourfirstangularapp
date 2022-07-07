@@ -19,7 +19,7 @@ this.calculateOrders()
   }
 
   // @Input() customers: any[] = [];
-  filteredCustomers: ICustomer[] = []; // stores filtered value
+    filteredCustomers: ICustomer[] = []; // stores filtered value
     customersOrderTotal: number = 0;
     currencyCode: string = 'INR'
     constructor() {}
@@ -35,6 +35,18 @@ this.calculateOrders()
           this.customersOrderTotal += cust.orderTotal ? cust.orderTotal : 0 ;
       });
   }
+  filter(data: string) {
+    if (data) {
+        this.filteredCustomers = this.customers.filter((cust: ICustomer) => {
+            return cust.name.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
+                   cust.city.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
+                   (cust.orderTotal && cust.orderTotal.toString().indexOf(data) > -1);
+        });
+    } else {
+      this.filteredCustomers = this.customers;
+    }
+    this.calculateOrders();
+}
   sort(prop: string){
     //sorter service will handel the sorting
   }
