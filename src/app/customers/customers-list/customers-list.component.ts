@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ICustomer } from '../../shared/interfaces';
+import { SorterService } from '../../core/sorter.service';
 
 @Component({
     selector: 'app-customers-list',
@@ -22,7 +23,7 @@ this.calculateOrders()
     filteredCustomers: ICustomer[] = []; // stores filtered value
     customersOrderTotal: number = 0;
     currencyCode: string = 'INR'
-    constructor() {}
+    constructor(private sorterService: SorterService) {}
 
     ngOnInit() {
     }
@@ -49,5 +50,6 @@ this.calculateOrders()
 }
   sort(prop: string){
     //sorter service will handel the sorting
+        this.sorterService.sort(this.filteredCustomers, prop);
   }
 }
